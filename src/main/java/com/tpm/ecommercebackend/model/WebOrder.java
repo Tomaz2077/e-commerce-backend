@@ -18,8 +18,8 @@ public class WebOrder {
     private LocalUser user;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "adress_id", nullable = false)
-    private Adress adress;
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
 
     @OneToMany(mappedBy = "order", orphanRemoval = true)
     private List<WebOrderQuantities> quantities = new ArrayList<>();
@@ -32,12 +32,12 @@ public class WebOrder {
         this.quantities = quantities;
     }
 
-    public Adress getAdress() {
-        return adress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAdress(Adress adress) {
-        this.adress = adress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public LocalUser getUser() {

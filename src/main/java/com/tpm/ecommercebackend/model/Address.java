@@ -1,10 +1,11 @@
 package com.tpm.ecommercebackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "adress")
-public class Adress {
+@Table(name = "address")
+public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -22,6 +23,7 @@ public class Adress {
     @Column(name = "country", nullable = false, length = 75)
     private String country;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private LocalUser user;
