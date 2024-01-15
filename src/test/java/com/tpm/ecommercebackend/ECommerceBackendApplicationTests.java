@@ -1,4 +1,4 @@
-package com.example.ecommercebackend;
+package com.tpm.ecommercebackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

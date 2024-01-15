@@ -1,33 +1,21 @@
-package com.example.ecommercebackend.model;
+package com.tpm.ecommercebackend.model;
 
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "web_order_quantities")
-public class WebOrderQuantities {
+@Table(name = "inventory")
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
+    @OneToOne(optional = false, orphanRemoval = true)
+    @JoinColumn(name = "product_id", nullable = false, unique = true)
     private Product product;
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "order_id", nullable = false)
-    private WebOrder order;
-
-    public WebOrder getOrder() {
-        return order;
-    }
-
-    public void setOrder(WebOrder order) {
-        this.order = order;
-    }
 
     public Integer getQuantity() {
         return quantity;
