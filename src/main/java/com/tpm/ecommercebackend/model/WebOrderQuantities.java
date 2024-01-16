@@ -3,6 +3,9 @@ package com.tpm.ecommercebackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+/**
+ * The quantity of a product in an order
+ */
 @Entity
 @Table(name = "web_order_quantities")
 public class WebOrderQuantities {

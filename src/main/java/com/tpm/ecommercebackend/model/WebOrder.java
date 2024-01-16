@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Order generated from the website
+ */
 @Entity
 @Table(name = "web_order")
 public class WebOrder {

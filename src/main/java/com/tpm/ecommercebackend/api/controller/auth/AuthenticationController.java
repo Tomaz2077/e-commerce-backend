@@ -15,7 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Rest Controller for auth requests
+ * REST controller for authentication
  */
 @RestController
 @RequestMapping("/auth")
@@ -27,6 +27,11 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
+    /**
+     * Register a new user
+     * @param registrationBody
+     * @return
+     */
     @PostMapping("/register")
     public ResponseEntity registerUser (@Valid @RequestBody RegistrationBody registrationBody) {
         try {
@@ -39,7 +44,11 @@ public class AuthenticationController {
         }
     }
 
-
+    /**
+     * Login a user
+     * @param loginBody
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginBody loginBody) {
         String jwt = null;
@@ -67,6 +76,11 @@ public class AuthenticationController {
         }
     }
 
+    /**
+     * Verify a user's email
+     * @param token the JWT token
+     * @return
+     */
     @PostMapping("/verify")
     public ResponseEntity verifyEmail(@RequestParam String token) {
         if (userService.verifyUser(token)) {

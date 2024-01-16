@@ -7,6 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+/**
+ * Request body for registration requests
+ */
 public class RegistrationBody {
     @NotNull
     @NotBlank
@@ -16,6 +19,8 @@ public class RegistrationBody {
     @NotBlank
     @Email
     private String email;
+
+    /** The password. Must be at least 8 characters long and contain at least one letter and one number */
     @NotNull
     @NotBlank
     @Size(min = 8, max = 32)

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * REST controller for orders
+ */
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -19,6 +22,11 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+    /**
+     * Get all orders for the specific user
+     * @param user
+     * @return
+     */
     @GetMapping
     public List<WebOrder> getOrders(@AuthenticationPrincipal LocalUser user) {
         return orderService.getOrders(user);

@@ -12,6 +12,9 @@ import jakarta.persistence.Table;
 
 import java.sql.Timestamp;
 
+/**
+ * Token that was sent to the user to verify their email address
+ */
 @Entity
 @Table(name = "verification_token")
 public class VerificationToken {

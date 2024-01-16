@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * REST controller for products
+ */
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -17,6 +20,10 @@ public class ProductController {
         this.productService = productService;
     }
 
+    /**
+     * Get all products
+     * @return list of products
+     */
     @GetMapping
     public List<Product> getProducts() {
         return productService.getAllProducts();

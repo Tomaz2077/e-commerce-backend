@@ -2,6 +2,9 @@ package com.tpm.ecommercebackend.model;
 
 import jakarta.persistence.*;
 
+/**
+ * Product available for purchase
+ */
 @Entity
 @Table(name = "product")
 public class Product {

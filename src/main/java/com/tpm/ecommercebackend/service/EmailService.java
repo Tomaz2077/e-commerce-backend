@@ -8,7 +8,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-
+/**
+ * Service for sending emails
+ */
 @Service
 public class EmailService {
 
@@ -22,12 +24,21 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
+    /**
+     * Creates a new simple mail message
+     * @return the SimpleMailMessage created
+     */
     private SimpleMailMessage makeMailMessage() {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom(fromAdress);
         return simpleMailMessage;
     }
 
+    /**
+     * Sends a verification email to the user
+     * @param verificationToken the verification token to send
+     * @throws EmailFailureException if the email could not be sent
+     */
     public void sendVerificationEmail(VerificationToken verificationToken) throws EmailFailureException {
         SimpleMailMessage message = makeMailMessage();
         message.setTo(verificationToken.getUser().getEmail());

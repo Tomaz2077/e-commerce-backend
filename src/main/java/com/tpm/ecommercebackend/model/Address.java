@@ -3,6 +3,9 @@ package com.tpm.ecommercebackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+/**
+ * Address for the user to be used for shipping and billing
+ */
 @Entity
 @Table(name = "address")
 public class Address {

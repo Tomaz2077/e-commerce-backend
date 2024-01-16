@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * Filter for decoding a JWT authentication request and loading the user object into the security context
+ */
 @Component
 public class JWTRequestFilter extends OncePerRequestFilter {
 

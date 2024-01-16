@@ -3,6 +3,9 @@ package com.tpm.ecommercebackend.api.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Login request body
+ */
 public class LoginBody {
 
     @NotNull

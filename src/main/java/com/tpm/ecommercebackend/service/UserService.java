@@ -16,6 +16,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service for handling user actions
+ */
 @Service
 public class UserService {
 
@@ -34,6 +37,13 @@ public class UserService {
         this.verificationTokenDAO = verificationTokenDAO;
     }
 
+    /**
+     * Registers a user with the given information
+     * @param registrationBody The registration information
+     * @return The registered user that has been saved to the database
+     * @throws UserAlreadyExistException If the user already exists
+     * @throws EmailFailureException If the email fails to send
+     */
     public LocalUser registerUser(RegistrationBody registrationBody) throws UserAlreadyExistException, EmailFailureException {
         if (localUserDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent() ||
          localUserDAO.findByUsernameIgnoreCase(registrationBody.getUsername()).isPresent()) {
@@ -50,6 +60,11 @@ public class UserService {
         return localUserDAO.save(user);
     }
 
+    /**
+     * Creates a verification token for the given user
+     * @param user The user to create the verification token for
+     * @return The created verification token
+     */
     private VerificationToken createVerificationToken(LocalUser user) {
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(jwtService.generateVerificationJWT(user));
@@ -59,6 +74,13 @@ public class UserService {
         return verificationToken;
     }
 
+    /**
+     * Logs in the user and provides an authentication token back.
+     * @param loginBody The login information
+     * @return The JWT authentication token for the user. Null if the request was invalid.
+     * @throws UserNotVerifiedException If the user is not verified
+     * @throws EmailFailureException If the email fails to send
+     */
     public String loginUser(LoginBody loginBody) throws UserNotVerifiedException, EmailFailureException {
         Optional<LocalUser> opUser = localUserDAO.findByUsernameIgnoreCase(loginBody.getUsername());
         if (opUser.isPresent()) {
@@ -82,6 +104,11 @@ public class UserService {
         return null;
     }
 
+    /**
+     * Verifies the user with the given token
+     * @param token The token to verify
+     * @return True if the user was verified, false if the user was already verified or the token was invalid
+     */
     @Transactional
     public boolean verifyUser(String token) {
         Optional<VerificationToken> opToken = verificationTokenDAO.findByToken(token);

@@ -1,8 +1,15 @@
 package com.tpm.ecommercebackend.api.model;
 
+/**
+ * Response for login requests
+ */
 public class LoginResponse {
+
+    /** The JWT token to be used for auth requests */
     private String jwt;
     private boolean success;
+
+    /** The reason for login failure  */
     private String failureReason;
 
     public String getJwt() {

@@ -3,6 +3,9 @@ package com.tpm.ecommercebackend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+/**
+ * Inventory for a product
+ */
 @Entity
 @Table(name = "inventory")
 public class Inventory {

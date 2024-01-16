@@ -15,6 +15,9 @@ import jakarta.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * User of the application
+ */
 @Entity
 @Table(name = "local_user")
 public class LocalUser {
