@@ -90,7 +90,7 @@ public class UserService {
                     return jwtService.generateJWT(user);
                 } else {
                     List<VerificationToken> verificationTokens = user.getVerificationTokens();
-                    boolean resend = verificationTokens.size() == 0 ||
+                    boolean resend = verificationTokens.isEmpty() ||
                             verificationTokens.get(0).getCreatedTimestamp().before(new Timestamp(System.currentTimeMillis() - (60 * 60 * 1000)));
                     if (resend) {
                         VerificationToken verificationToken = createVerificationToken(user);

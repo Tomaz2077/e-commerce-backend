@@ -45,7 +45,7 @@ public class AuthenticationController {
     }
 
     /**
-     * Login a user
+     * Login a user.
      * @param loginBody
      * @return
      */
