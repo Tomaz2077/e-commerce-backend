@@ -1,6 +1,7 @@
 package com.tpm.ecommercebackend.service;
 
 import com.tpm.ecommercebackend.exception.EmailFailureException;
+import com.tpm.ecommercebackend.model.LocalUser;
 import com.tpm.ecommercebackend.model.VerificationToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -45,6 +46,20 @@ public class EmailService {
         message.setSubject("Please verify your email to activate your account");
         message.setText("Please follow the link below to verify your email to activate your account. \n" +
                 baseUrl + "/auth/verify?token=" + verificationToken.getToken());
+        try {
+            javaMailSender.send(message);
+        } catch (MailException ex) {
+            throw new EmailFailureException();
+        }
+    }
+
+    public void sendResetPasswordEmail(LocalUser user, String token) throws EmailFailureException {
+        SimpleMailMessage message = makeMailMessage();
+        message.setTo(user.getEmail());
+        message.setSubject("Reset your password");
+        message.setText("You requested a password reset on our website. \n" +
+                "Please follow the link below to reset your password. \n" +
+                baseUrl + "/auth/reset?token=" + token);
         try {
             javaMailSender.send(message);
         } catch (MailException ex) {

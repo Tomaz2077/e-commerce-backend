@@ -2,8 +2,10 @@ package com.tpm.ecommercebackend.api.controller.auth;
 
 import com.tpm.ecommercebackend.api.model.LoginBody;
 import com.tpm.ecommercebackend.api.model.LoginResponse;
+import com.tpm.ecommercebackend.api.model.PasswordResetBody;
 import com.tpm.ecommercebackend.api.model.RegistrationBody;
 import com.tpm.ecommercebackend.exception.EmailFailureException;
+import com.tpm.ecommercebackend.exception.EmailNotFoundException;
 import com.tpm.ecommercebackend.exception.UserAlreadyExistException;
 import com.tpm.ecommercebackend.exception.UserNotVerifiedException;
 import com.tpm.ecommercebackend.model.LocalUser;
@@ -88,6 +90,25 @@ public class AuthenticationController {
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
+    }
+
+    @PostMapping("/forgot")
+    public ResponseEntity forgotPassword(@RequestParam String email) {
+        try {
+            userService.forgotPassword(email);
+            return ResponseEntity.ok().build();
+        } catch (EmailFailureException ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (EmailNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @PostMapping("/reset")
+    public ResponseEntity resetPassword(@Valid @RequestBody PasswordResetBody body) {
+        userService.resetPassword(body);
+        return ResponseEntity.ok().build();
+
     }
 
     @GetMapping("/me")

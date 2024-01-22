@@ -1,8 +1,10 @@
 package com.tpm.ecommercebackend.service;
 
 import com.tpm.ecommercebackend.api.model.LoginBody;
+import com.tpm.ecommercebackend.api.model.PasswordResetBody;
 import com.tpm.ecommercebackend.api.model.RegistrationBody;
 import com.tpm.ecommercebackend.exception.EmailFailureException;
+import com.tpm.ecommercebackend.exception.EmailNotFoundException;
 import com.tpm.ecommercebackend.exception.UserAlreadyExistException;
 import com.tpm.ecommercebackend.exception.UserNotVerifiedException;
 import com.tpm.ecommercebackend.model.LocalUser;
@@ -10,7 +12,10 @@ import com.tpm.ecommercebackend.model.VerificationToken;
 import com.tpm.ecommercebackend.model.dao.LocalUserDAO;
 import com.tpm.ecommercebackend.model.dao.VerificationTokenDAO;
 import jakarta.transaction.Transactional;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -123,5 +128,26 @@ public class UserService {
             }
         }
         return false;
+    }
+
+    public void forgotPassword(String email) throws EmailNotFoundException, EmailFailureException {
+        Optional<LocalUser> opUser = localUserDAO.findByEmailIgnoreCase(email);
+        if (opUser.isPresent()) {
+            LocalUser user = opUser.get();
+            String token = jwtService.generatePasswordResetJWT(user);
+            emailService.sendResetPasswordEmail(user, token);
+        } else {
+            throw new EmailNotFoundException();
+        }
+    }
+
+    public void resetPassword(PasswordResetBody body) {
+        String email = jwtService.getResetPasswordEmail(body.getToken());
+        Optional<LocalUser> opUser = localUserDAO.findByEmailIgnoreCase(email);
+        if (opUser.isPresent()) {
+            LocalUser user = opUser.get();
+            user.setPassword(encryptionService.encryptPassword(body.getPassword()));
+            localUserDAO.save(user);
+        }
     }
 }

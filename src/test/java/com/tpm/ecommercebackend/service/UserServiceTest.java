@@ -4,11 +4,15 @@ import com.icegreen.greenmail.configuration.GreenMailConfiguration;
 import com.icegreen.greenmail.junit5.GreenMailExtension;
 import com.icegreen.greenmail.util.ServerSetupTest;
 import com.tpm.ecommercebackend.api.model.LoginBody;
+import com.tpm.ecommercebackend.api.model.PasswordResetBody;
 import com.tpm.ecommercebackend.api.model.RegistrationBody;
 import com.tpm.ecommercebackend.exception.EmailFailureException;
+import com.tpm.ecommercebackend.exception.EmailNotFoundException;
 import com.tpm.ecommercebackend.exception.UserAlreadyExistException;
 import com.tpm.ecommercebackend.exception.UserNotVerifiedException;
+import com.tpm.ecommercebackend.model.LocalUser;
 import com.tpm.ecommercebackend.model.VerificationToken;
+import com.tpm.ecommercebackend.model.dao.LocalUserDAO;
 import com.tpm.ecommercebackend.model.dao.VerificationTokenDAO;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
@@ -35,6 +39,12 @@ class UserServiceTest {
     private UserService userService;
     @Autowired
     private VerificationTokenDAO verificationTokenDAO;
+    @Autowired
+    private JWTService jwtService;
+    @Autowired
+    private LocalUserDAO localUserDAO;
+    @Autowired
+    private EncryptionService encryptionService;
 
     @Test
     @Transactional
@@ -123,5 +133,37 @@ class UserServiceTest {
             Assertions.assertTrue(isUserNowLoggedIn, "User should now be logged in");
             Assertions.assertNotNull(body, "loginUser method should not had returned null");
         }
+    }
+
+    @Test
+    @Transactional
+    void testForgotPassword() throws EmailNotFoundException, EmailFailureException {
+        // assert that an exception is thrown when the email is not found
+        Assertions.assertThrows(EmailNotFoundException.class, () -> {
+            userService.forgotPassword("InvalidEmail");
+        }, "Invalid emails should throw an exception");
+
+        // assert that an exception is not thrown when the email is found
+        Assertions.assertDoesNotThrow(() -> {
+            userService.forgotPassword("UserA@junit.com");
+        }, "Valid emails should not throw an exception");
+
+        // assert that the email was sent
+        Assertions.assertEquals(1, greenMailExtension.getReceivedMessages().length, "Email should be received");
+    }
+
+    @Test
+    @Transactional
+    void testResetPassword() {
+        LocalUser user = localUserDAO.findByUsernameIgnoreCase("UserA").get();
+        String token = jwtService.generatePasswordResetJWT(user);
+        String newPassword = "NewPassword123";
+        PasswordResetBody body = new PasswordResetBody();
+        body.setToken(token);
+        body.setPassword(newPassword);
+        userService.resetPassword(body);
+
+        user = localUserDAO.findByUsernameIgnoreCase("UserA").get();
+        Assertions.assertTrue(encryptionService.verifyPassword(newPassword, user.getPassword()), "Password should be updated");
     }
 }
