@@ -28,6 +28,17 @@ public class Product {
     @OneToOne(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Inventory inventory;
 
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Inventory getInventory() {
         return inventory;
     }

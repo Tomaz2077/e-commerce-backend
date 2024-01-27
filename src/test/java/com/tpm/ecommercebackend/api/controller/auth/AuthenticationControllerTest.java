@@ -164,15 +164,4 @@ class AuthenticationControllerTest {
         return body;
     }
 
-    @Test
-    void loginUser() {
-    }
-
-    @Test
-    void verifyEmail() {
-    }
-
-    @Test
-    void getLoggedInUserProfile() {
-    }
 }

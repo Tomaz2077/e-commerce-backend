@@ -11,12 +11,13 @@ INSERT INTO address(address_line_1, city, country, user_id)
 VALUES ('123 Tester Hill', 'Testerton', 'England', 1)
      , ('312 Spring Boot', 'Hibernate', 'England', 3);
 
-INSERT INTO product (name, short_description, long_description, price)
-VALUES ('Product #1', 'Product one short description.', 'This is a very long description of product #1.', 5.50)
-     , ('Product #2', 'Product two short description.', 'This is a very long description of product #2.', 10.56)
-     , ('Product #3', 'Product three short description.', 'This is a very long description of product #3.', 2.74)
-     , ('Product #4', 'Product four short description.', 'This is a very long description of product #4.', 15.69)
-     , ('Product #5', 'Product five short description.', 'This is a very long description of product #5.', 42.59);
+INSERT INTO product (name, short_description, long_description, price, image_url)
+VALUES ('Product #1', 'Product one short description.', 'This is a very long description of product #1.', 5.50, 'product1.jpg')
+     , ('Product #2', 'Product two short description.', 'This is a very long description of product #2.', 10.56, 'product2.jpg')
+     , ('Product #3', 'Product three short description.', 'This is a very long description of product #3.', 2.74, 'product3.jpg')
+     , ('Product #4', 'Product four short description.', 'This is a very long description of product #4.', 15.69, 'product4.jpg')
+     , ('Product #5', 'Product five short description.', 'This is a very long description of product #5.', 42.59, 'product5.jpg')
+     , ('Product #6', 'Product six short description.', 'This is a very long description of product #6.', 22.59, 'product6.jpg');
 
 INSERT INTO inventory (product_id, quantity)
 VALUES (1, 5)
