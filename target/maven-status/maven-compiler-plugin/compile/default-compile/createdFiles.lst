@@ -23,9 +23,11 @@ com\tpm\ecommercebackend\model\Address.class
 com\tpm\ecommercebackend\model\LocalUser.class
 com\tpm\ecommercebackend\model\Product.class
 com\tpm\ecommercebackend\api\controller\product\ProductController.class
+com\tpm\ecommercebackend\api\security\CorsConfiguration$1.class
 com\tpm\ecommercebackend\exception\EmailNotFoundException.class
 com\tpm\ecommercebackend\model\VerificationToken.class
 com\tpm\ecommercebackend\service\UserService.class
 com\tpm\ecommercebackend\api\security\WebSecurityConfig.class
 com\tpm\ecommercebackend\exception\EmailFailureException.class
+com\tpm\ecommercebackend\api\security\CorsConfiguration.class
 com\tpm\ecommercebackend\model\WebOrderQuantities.class

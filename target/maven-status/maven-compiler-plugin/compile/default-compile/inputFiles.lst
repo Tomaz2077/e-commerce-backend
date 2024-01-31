@@ -23,6 +23,7 @@ C:\Users\Bruker\Documents\gitwork\e-commerce-backend\e-commerce-backend\src\main
 C:\Users\Bruker\Documents\gitwork\e-commerce-backend\e-commerce-backend\src\main\java\com\tpm\ecommercebackend\api\model\PasswordResetBody.java
 C:\Users\Bruker\Documents\gitwork\e-commerce-backend\e-commerce-backend\src\main\java\com\tpm\ecommercebackend\model\WebOrderQuantities.java
 C:\Users\Bruker\Documents\gitwork\e-commerce-backend\e-commerce-backend\src\main\java\com\tpm\ecommercebackend\api\security\JWTRequestFilter.java
+C:\Users\Bruker\Documents\gitwork\e-commerce-backend\e-commerce-backend\src\main\java\com\tpm\ecommercebackend\api\security\CorsConfiguration.java
 C:\Users\Bruker\Documents\gitwork\e-commerce-backend\e-commerce-backend\src\main\java\com\tpm\ecommercebackend\model\dao\VerificationTokenDAO.java
 C:\Users\Bruker\Documents\gitwork\e-commerce-backend\e-commerce-backend\src\main\java\com\tpm\ecommercebackend\service\EmailService.java
 C:\Users\Bruker\Documents\gitwork\e-commerce-backend\e-commerce-backend\src\main\java\com\tpm\ecommercebackend\model\Product.java
